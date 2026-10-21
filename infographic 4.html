@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Evolution of Technology | Interactive Infographic</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #007AFF, #5856D6, #AF52DE);
+            z-index: 1000;
+            transition: width 0.1s ease-out;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .section.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero {
+            background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #000 100%);
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 900;
+            background: linear-gradient(45deg, #007AFF, #5856D6, #AF52DE, #FF2D92);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+            margin-bottom: 2rem;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            opacity: 0.8;
+            max-width: 600px;
+            line-height: 1.6;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 0.8;
+                transform: translateY(0);
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        .timeline {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            flex-direction: column;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: #007AFF;
+        }
+
+        .timeline-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 4px;
+            height: 0;
+            background: linear-gradient(to bottom, #007AFF, #5856D6, #AF52DE);
+            transform: translateX(-50%);
+            transition: height 1s ease-out;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: all 0.6s ease-out;
+        }
+
+        .timeline-item.right {
+            flex-direction: row-reverse;
+            transform: translateX(100px);
+        }
+
+        .timeline-item.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            width: 45%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 122, 255, 0.3);
+        }
+
+        .timeline-year {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #007AFF, #5856D6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border: 4px solid #000;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 122, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0); }
+        }
+
+        .stats-section {
+            background: linear-gradient(45deg, #2D1B69, #11998e);
+            flex-direction: column;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            width: 100%;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: scale(0.8);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .stat-card.animate {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #00D4FF;
+            margin-bottom: 0.5rem;
+            animation: countUp 2s ease-out;
+        }
+
+        .chart-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            flex-direction: column;
+        }
+
+        .chart-container {
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .bar-chart {
+            display: flex;
+            align-items: end;
+            justify-content: space-around;
+            height: 80%;
+            padding: 1rem 0;
+        }
+
+        .bar {
+            width: 60px;
+            background: linear-gradient(to top, #007AFF, #5856D6);
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            transform-origin: bottom;
+            transform: scaleY(0);
+            transition: transform 1s ease-out;
+        }
+
+        .bar.animate {
+            transform: scaleY(1);
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #00D4FF;
+        }
+
+        .future-section {
+            background: linear-gradient(45deg, #1a2980, #26d0ce);
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .future-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin-top: 3rem;
+        }
+
+        .future-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: rotateY(90deg);
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+
+        .future-card.animate {
+            transform: rotateY(0deg);
+            opacity: 1;
+        }
+
+        .future-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(0, 122, 255, 0.6);
+            border-radius: 50%;
+            animation: float-random 15s linear infinite;
+        }
+
+        @keyframes float-random {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .interactive-demo {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .demo-container {
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        .device-mockup {
+            width: 300px;
+            height: 600px;
+            background: #1a1a1a;
+            border-radius: 30px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #007AFF, #5856D6);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: screenGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes screenGlow {
+            0%, 100% { box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.1); }
+            50% { box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.3); }
+        }
+
+        @media (max-width: 768px) {
+            .timeline-item {
+                flex-direction: column !important;
+                align-items: center;
+            }
+            
+            .timeline-content {
+                width: 90%;
+            }
+            
+            .timeline-year {
+                position: relative;
+                margin: 1rem 0;
+            }
+            
+            .timeline-line {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #007AFF, #5856D6);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .scroll-to-top.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 122, 255, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar"></div>
+    <div class="floating-elements"></div>
+    <button class="scroll-to-top" onclick="scrollToTop()">↑</button>
+
+    <section class="section hero">
+        <h1>TECH EVOLUTION</h1>
+        <p>Journey through the revolutionary milestones that shaped our digital world</p>
+        <div class="scroll-indicator">
+            <div style="width: 2px; height: 30px; background: #007AFF; margin: 0 auto; animation: bounce 2s infinite;"></div>
+        </div>
+    </section>
+
+    <section class="section timeline">
+        <h2>Timeline of Innovation</h2>
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>The Internet Revolution</h3>
+                    <p>The World Wide Web transforms global communication, creating the foundation for our connected world.</p>
+                </div>
+                <div class="timeline-year">1990</div>
+            </div>
+
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>Mobile Computing Era</h3>
+                    <p>Smartphones revolutionize personal computing, putting the internet in everyone's pocket.</p>
+                </div>
+                <div class="timeline-year">2007</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Cloud Computing Boom</h3>
+                    <p>Infrastructure moves to the cloud, enabling scalable computing for businesses worldwide.</p>
+                </div>
+                <div class="timeline-year">2010</div>
+            </div>
+
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>AI Renaissance</h3>
+                    <p>Machine learning and artificial intelligence begin transforming every industry.</p>
+                </div>
+                <div class="timeline-year">2016</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>5G & IoT Revolution</h3>
+                    <p>Ultra-fast connectivity enables the Internet of Things and edge computing.</p>
+                </div>
+                <div class="timeline-year">2020</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section stats-section">
+        <h2 style="font-size: 3rem; margin-bottom: 2rem; color: #00D4FF;">Growth by Numbers</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" data-target="5.16">0</div>
+                <div class="stat-label">Billion Internet Users</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="6.8">0</div>
+                <div class="stat-label">Billion Smartphone Users</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="50">0</div>
+                <div class="stat-label">Billion IoT Devices</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="175">0</div>
+                <div class="stat-label">Zettabytes of Data</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section chart-section">
+        <h2 style="font-size: 3rem; margin-bottom: 2rem; text-align: center;">Global Tech Adoption</h2>
+        <div class="chart-container">
+            <div class="bar-chart">
+                <div class="bar" style="height: 85%;">
+                    <div class="bar-label">Internet</div>
+                    <div class="bar-value">64%</div>
+                </div>
+                <div class="bar" style="height: 68%;">
+                    <div class="bar-label">Mobile</div>
+                    <div class="bar-value">68%</div>
+                </div>
+                <div class="bar" style="height: 58%;">
+                    <div class="bar-label">Social Media</div>
+                    <div class="bar-value">58%</div>
+                </div>
+                <div class="bar" style="height: 45%;">
+                    <div class="bar-label">E-commerce</div>
+                    <div class="bar-value">27%</div>
+                </div>
+                <div class="bar" style="height: 25%;">
+                    <div class="bar-label">AI/ML</div>
+                    <div class="bar-value">15%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section interactive-demo">
+        <h2 style="font-size: 3rem; margin-bottom: 2rem;">The Future is Now</h2>
+        <div class="demo-container">
+            <div class="device-mockup">
+                <div class="screen">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">📱</div>
+                    <div style="font-size: 1.2rem; font-weight: bold;">Next-Gen Interface</div>
+                    <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 1rem;">Powered by AI & 5G</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section future-section">
+        <h2 style="font-size: 3rem; margin-bottom: 2rem;">What's Next?</h2>
+        <div class="future-grid">
+            <div class="future-card">
+                <div class="future-icon">🧠</div>
+                <h3>Artificial General Intelligence</h3>
+                <p>AI systems that can understand, learn, and apply intelligence across diverse domains.</p>
+            </div>
+            <div class="future-card">
+                <div class="future-icon">🔬</div>
+                <h3>Quantum Computing</h3>
+                <p>Quantum processors solving complex problems exponentially faster than classical computers.</p>
+            </div>
+            <div class="future-card">
+                <div class="future-icon">🌐</div>
+                <h3>Metaverse</h3>
+                <p>Immersive virtual worlds blending physical and digital experiences seamlessly.</p>
+            </div>
+            <div class="future-card">
+                <div class="future-icon">🚗</div>
+                <h3>Autonomous Everything</h3>
+                <p>Self-driving vehicles, robots, and smart cities operating independently.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Progress bar
+        function updateProgressBar() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        }
+
+        window.addEventListener('scroll', updateProgressBar);
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                    
+                    // Special handling for different sections
+                    if (entry.target.classList.contains('stats-section')) {
+                        animateStats();
+                    }
+                    
+                    if (entry.target.classList.contains('chart-section')) {
+                        animateBars();
+                    }
+                    
+                    if (entry.target.classList.contains('timeline')) {
+                        animateTimelineLine();
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections and timeline items
+        document.querySelectorAll('.section, .timeline-item, .stat-card, .future-card, .bar').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Animate stats counter
+        function animateStats() {
+            document.querySelectorAll('.stat-number').forEach(stat => {
+                const target = parseFloat(stat.dataset.target);
+                const increment = target / 60;
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    stat.textContent = current.toFixed(current < 10 ? 2 : 0);
+                }, 50);
+            });
+        }
+
+        // Animate chart bars
+        function animateBars() {
+            document.querySelectorAll('.bar').forEach((bar, index) => {
+                setTimeout(() => {
+                    bar.classList.add('animate');
+                }, index * 200);
+            });
+        }
+
+        // Animate timeline line
+        function animateTimelineLine() {
+            const timelineContainer = document.querySelector('.timeline-container');
+            const timelineLine = document.querySelector('.timeline-line');
+            const containerHeight = timelineContainer.offsetHeight;
+            
+            let currentHeight = 0;
+            const targetHeight = containerHeight;
+            const increment = targetHeight / 100;
+            
+            const lineAnimation = setInterval(() => {
+                currentHeight += increment;
+                if (currentHeight >= targetHeight) {
+                    currentHeight = targetHeight;
+                    clearInterval(lineAnimation);
+                }
+                timelineLine.style.height = currentHeight + 'px';
+            }, 20);
+        }
+
+        // Floating background elements
+        function createFloatingElements() {
+            const container = document.querySelector('.floating-elements');
+            
+            for (let i = 0; i < 30; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.style.left = Math.random() * 100 + '%';
+                element.style.animationDelay = Math.random() * 15 + 's';
+                element.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                container.appendChild(element);
+            }
+        }
+
+        createFloatingElements();
+
+        // Scroll to top functionality
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', () => {
+            const scrollToTopBtn = document.querySelector('.scroll-to-top');
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('show');
+            } else {
+                scrollToTopBtn.classList.remove('show');
+            }
+        });
+
+        // Enhanced hover effects for timeline items
+        document.querySelectorAll('.timeline-content').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+                this.style.boxShadow = '0 25px 50px rgba(0, 122, 255, 0.4)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+                this.style.boxShadow = 'none';
+            });
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const heroContent = hero.querySelector('h1');
+            
+            heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+
+        // Add smooth reveal animation for future cards
+        const futureCards = document.querySelectorAll('.future-card');
+        futureCards.forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.2}s`;
+        });
+
+        // Interactive device mockup
+        const deviceScreen = document.querySelector('.screen');
+        let colorIndex = 0;
+        const colors = [
+            'linear-gradient(45deg, #007AFF, #5856D6)',
+            'linear-gradient(45deg, #AF52DE, #FF2D92)',
+            'linear-gradient(45deg, #32D74B, #007AFF)',
+            'linear-gradient(45deg, #FF9500, #FF2D92)'
+        ];
+
+        setInterval(() => {
+            colorIndex = (colorIndex + 1) % colors.length;
+            deviceScreen.style.background = colors[colorIndex];
+        }, 3000);
+
+        // Performance optimization: Debounce scroll events
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        const debouncedProgressUpdate = debounce(updateProgressBar, 10);
+        window.removeEventListener('scroll', updateProgressBar);
+        window.addEventListener('scroll', debouncedProgressUpdate);
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease-in-out';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === ' ') {
+                e.preventDefault();
+                const sections = document.querySelectorAll('.section');
+                const currentSection = Array.from(sections).findIndex(section => {
+                    const rect = section.getBoundingClientRect();
+                    return rect.top <= 100 && rect.bottom >= 100;
+                });
+                
+                if (currentSection < sections.length - 1) {
+                    sections[currentSection + 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+            
+            if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                const sections = document.querySelectorAll('.section');
+                const currentSection = Array.from(sections).findIndex(section => {
+                    const rect = section.getBoundingClientRect();
+                    return rect.top <= 100 && rect.bottom >= 100;
+                });
+                
+                if (currentSection > 0) {
+                    sections[currentSection - 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
