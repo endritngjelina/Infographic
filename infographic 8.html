@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolution of Technology | Interactive Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #007AFF;
+            --primary-purple: #5856D6;
+            --primary-pink: #AF52DE;
+            --accent-cyan: #00D4FF;
+            --accent-green: #32D74B;
+            --background-dark: #000000;
+            --surface-dark: #1C1C1E;
+            --surface-elevated: #2C2C2E;
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--background-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            font-feature-settings: 'kern' 1, 'liga' 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(88, 86, 214, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(175, 82, 222, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 50% 50%, rgba(0, 122, 255, 0.05) 0%, transparent 40%);
+        }
+
+        /* Enhanced Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 2000;
+            backdrop-filter: blur(20px);
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-purple), var(--primary-pink));
+            transition: width 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Navigation Pills */
+        .nav-pills {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1500;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .nav-pill {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            position: relative;
+        }
+
+        .nav-pill.active {
+            background: var(--primary-blue);
+            transform: scale(1.2);
+            box-shadow: 0 0 20px rgba(0, 122, 255, 0.6);
+        }
+
+        .nav-pill:hover {
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(1.1);
+        }
+
+        /* Enhanced Section Styling */
+        .section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            opacity: 0;
+            transform: translateY(60px) scale(0.95);
+            transition: all 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .section.animate {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 122, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .section:hover::before {
+            opacity: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, #000 70%);
+            text-align: center;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 122, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(88, 86, 214, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(175, 82, 222, 0.1) 0%, transparent 50%);
+            animation: bgShift 20s ease-in-out infinite;
+        }
+
+        @keyframes bgShift {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            33% { transform: translateX(-10px) translateY(-10px); }
+            66% { transform: translateX(10px) translateY(10px); }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 12vw, 10rem);
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            line-height: 0.9;
+            background: linear-gradient(45deg, var(--primary-blue), var(--primary-purple), var(--primary-pink), var(--accent-cyan));
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientFlow 6s ease-in-out infinite;
+            margin-bottom: 2rem;
+            position: relative;
+            text-shadow: 0 0 20px rgba(0, 122, 255, 0.3);
+        }
+
+        @keyframes gradientFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 600;
+            opacity: 0;
+            max-width: 800px;
+            line-height: 1.4;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s both;
+            color: var(--text-secondary);
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeInUp 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.2s both;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-primary {
+            background: linear-gradient(45deg, var(--primary-blue), var(--primary-purple));
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 122, 255, 0.3);
+        }
+
+        .cta-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 122, 255, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0.7;
+            animation: bounce 3s ease-in-out infinite;
+        }
+
+        .scroll-indicator span {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .scroll-arrow {
+            width: 2px;
+            height: 30px;
+            background: linear-gradient(to bottom, var(--primary-blue), transparent);
+            border-radius: 1px;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Enhanced Timeline */
+        .timeline {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            flex-direction: column;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 4rem;
+            background: linear-gradient(45deg, var(--primary-blue), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .timeline-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 4px;
+            height: 0;
+            background: linear-gradient(to bottom, var(--primary-blue), var(--primary-purple), var(--primary-pink));
+            transform: translateX(-50%);
+            transition: height 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 2px;
+            box-shadow: 0 0 20px rgba(0, 122, 255, 0.5);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 6rem;
+            opacity: 0;
+            transform: translateX(-120px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .timeline-item.right {
+            flex-direction: row-reverse;
+            transform: translateX(120px);
+        }
+
+        .timeline-item.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-content {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            width: 45%;
+            border: 1px solid var(--glass-border);
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0, 122, 255, 0.1), rgba(88, 86, 214, 0.1));
+            border-radius: 24px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .timeline-content:hover::before {
+            opacity: 1;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 122, 255, 0.3);
+        }
+
+        .timeline-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--accent-cyan);
+        }
+
+        .timeline-content p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .timeline-year {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, var(--primary-blue), var(--primary-purple));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            border: 6px solid var(--background-dark);
+            box-shadow: 0 0 30px rgba(0, 122, 255, 0.6);
+            animation: pulse 3s infinite;
+            z-index: 10;
+        }
+
+        @keyframes pulse {
+            0% { 
+                box-shadow: 0 0 30px rgba(0, 122, 255, 0.6);
+                transform: translateX(-50%) scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 40px rgba(0, 122, 255, 0.8);
+                transform: translateX(-50%) scale(1.05);
+            }
+            100% { 
+                box-shadow: 0 0 30px rgba(0, 122, 255, 0.6);
+                transform: translateX(-50%) scale(1);
+            }
+        }
+
+        /* Enhanced Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, #2D1B69 0%, #11998e 50%, #38ef7d 100%);
+            flex-direction: column;
+            position: relative;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 3rem 2rem;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            transform: scale(0.8) rotateY(30deg);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card.animate {
+            transform: scale(1) rotateY(0deg);
+            opacity: 1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0, 212, 255, 0.3);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 20px rgba(0, 122, 255, 0.5));
+        }
+
+        .stat-number {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+            font-feature-settings: 'tnum';
+            filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5));
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* Enhanced Chart Section */
+        .chart-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            flex-direction: column;
+        }
+
+        .chart-container {
+            width: 100%;
+            max-width: 900px;
+            height: 500px;
+            position: relative;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 3rem;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .bar-chart {
+            display: flex;
+            align-items: end;
+            justify-content: space-around;
+            height: 80%;
+            padding: 2rem 0;
+        }
+
+        .bar {
+            width: 80px;
+            background: linear-gradient(to top, var(--primary-blue), var(--accent-cyan));
+            border-radius: 16px 16px 0 0;
+            position: relative;
+            transform-origin: bottom;
+            transform: scaleY(0);
+            transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 0 20px rgba(0, 122, 255, 0.3);
+        }
+
+        .bar.animate {
+            transform: scaleY(1);
+        }
+
+        .bar:hover {
+            filter: brightness(1.2);
+            transform: scaleY(1) scaleX(1.1);
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+            font-weight: 600;
+            white-space: nowrap;
+            color: var(--text-primary);
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--accent-cyan);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+        }
+
+        /* Interactive Demo Section */
+        .interactive-demo {
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .demo-container {
+            margin-top: 2rem;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .device-mockup {
+            width: 350px;
+            height: 700px;
+            background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+            border-radius: 50px;
+            padding: 25px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+            transition: transform 0.3s ease;
+        }
+
+        .device-mockup:hover {
+            transform: rotateY(5deg) rotateX(5deg);
+        }
+
+        .screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-blue), var(--primary-purple));
+            border-radius: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.1);
+        }
+
+        .screen-content {
+            z-index: 10;
+            text-align: center;
+        }
+
+        .screen-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .screen-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .screen-subtitle {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Future Section */
+        .future-section {
+            background: linear-gradient(45deg, #1a2980, #26d0ce, #38ef7d);
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .future-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin-top: 3rem;
+        }
+
+        .future-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 3rem 2rem;
+            border: 1px solid var(--glass-border);
+            transform: rotateY(90deg) scale(0.8);
+            opacity: 0;
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .future-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 122, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .future-card:hover::before {
+            opacity: 1;
+        }
+
+        .future-card.animate {
+            transform: rotateY(0deg) scale(1);
+            opacity: 1;
+        }
+
+        .future-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 30px 60px rgba(0, 122, 255, 0.3);
+        }
+
+        .future-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            animation: float 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(0, 122, 255, 0.5));
+        }
+
+        .future-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--accent-cyan);
+        }
+
+        .future-card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Enhanced floating elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            animation: float-random 20s linear infinite;
+        }
+
+        .floating-element.small {
+            width: 3px;
+            height: 3px;
+            background: rgba(0, 122, 255, 0.6);
+        }
+
+        .floating-element.medium {
+            width: 6px;
+            height: 6px;
+            background: rgba(88, 86, 214, 0.5);
+        }
+
+        .floating-element.large {
+            width: 10px;
+            height: 10px;
+            background: rgba(175, 82, 222, 0.4);
+        }
+
+        @keyframes float-random {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) translateX(var(--random-x, 0)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Enhanced scroll to top */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--primary-blue), var(--primary-purple));
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(100px) scale(0.8);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 122, 255, 0.3);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scroll-to-top.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 20px 40px rgba(0, 122, 255, 0.5);
+        }
+
+        /* Loading animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .loading-overlay.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(0, 122, 255, 0.3);
+            border-top: 3px solid var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Toast notifications */
+        .toast-container {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 2000;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-weight: 500;
+            transform: translateX(400px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .timeline-item, .timeline-item.right {
+                flex-direction: column;
+                align-items: center;
+                transform: translateY(40px);
+            }
+            
+            .timeline-item.animate, .timeline-item.right.animate {
+                transform: translateY(0);
+            }
+            
+            .timeline-content {
+                width: 80%;
+                margin-top: 80px;
+            }
+            
+            .timeline-year {
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%) translateY(-50%);
+            }
+            
+            .nav-pills {
+                right: 1rem;
+            }
+            
+            .device-mockup {
+                width: 280px;
+                height: 560px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 4rem 1rem;
+            }
+            
+            .timeline-content {
+                width: 90%;
+            }
+            
+            .chart-container {
+                padding: 1.5rem;
+                height: 400px;
+            }
+            
+            .bar {
+                width: 50px;
+            }
+            
+            .bar-value {
+                font-size: 0.9rem;
+                padding: 0.3rem 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-overlay">
+        <div class="loader"></div>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="nav-pills" id="navPills">
+        <div class="nav-pill active" data-section="hero"></div>
+        <div class="nav-pill" data-section="timeline"></div>
+        <div class="nav-pill" data-section="stats"></div>
+        <div class="nav-pill" data-section="chart"></div>
+        <div class="nav-pill" data-section="demo"></div>
+        <div class="nav-pill" data-section="future"></div>
+    </div>
+
+    <div class="floating-elements" id="floatingElements"></div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <button class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <section id="hero" class="section hero">
+        <div class="hero-bg"></div>
+        <h1>TECH EVOLUTION</h1>
+        <p class="hero-subtitle">From the first computers to the AI revolution, explore the journey of digital transformation that reshaped our world</p>
+        <div class="hero-cta">
+            <button class="cta-button cta-primary">Explore Journey</button>
+            <button class="cta-button cta-secondary">View Timeline</button>
+        </div>
+        <div class="scroll-indicator">
+            <span>SCROLL TO EXPLORE</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <section id="timeline" class="section timeline">
+        <h2 class="section-title">Technology Timeline</h2>
+        <div class="timeline-container">
+            <div class="timeline-line" id="timelineLine"></div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>The First Computers</h3>
+                    <p>The ENIAC, completed in 1945, was the first general-purpose electronic computer. Weighing 30 tons and occupying 1,800 square feet, it could perform 5,000 additions per second.</p>
+                </div>
+                <div class="timeline-year">1945</div>
+            </div>
+            
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>Transistor Invention</h3>
+                    <p>Bell Labs invented the transistor in 1947, replacing vacuum tubes. This breakthrough made computers smaller, faster, and more reliable, paving the way for modern computing.</p>
+                </div>
+                <div class="timeline-year">1947</div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Integrated Circuits</h3>
+                    <p>Jack Kilby and Robert Noyce independently invented the integrated circuit in 1958-1959. This allowed multiple transistors to be placed on a single silicon chip.</p>
+                </div>
+                <div class="timeline-year">1958</div>
+            </div>
+            
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>Personal Computers</h3>
+                    <p>The Altair 8800, released in 1975, was the first commercially successful personal computer. This sparked the PC revolution, leading to Apple and IBM PCs.</p>
+                </div>
+                <div class="timeline-year">1975</div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>World Wide Web</h3>
+                    <p>Tim Berners-Lee invented the World Wide Web in 1989 while working at CERN. This created the foundation for the modern internet as we know it today.</p>
+                </div>
+                <div class="timeline-year">1989</div>
+            </div>
+            
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>Smartphone Revolution</h3>
+                    <p>Apple introduced the iPhone in 2007, revolutionizing mobile computing. Touchscreens, app ecosystems, and mobile internet became mainstream.</p>
+                </div>
+                <div class="timeline-year">2007</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="stats" class="section stats-section">
+        <h2 class="section-title">Technology By The Numbers</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <i class="fas fa-microchip stat-icon"></i>
+                <div class="stat-number" id="stat1">5.3B</div>
+                <div class="stat-label">Smartphones in Use Worldwide</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-robot stat-icon"></i>
+                <div class="stat-number" id="stat2">37%</div>
+                <div class="stat-label">Annual Growth in AI Adoption</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-cloud stat-icon"></i>
+                <div class="stat-number" id="stat3">94%</div>
+                <div class="stat-label">Enterprises Using Cloud Services</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-bolt stat-icon"></i>
+                <div class="stat-number" id="stat4">175ZB</div>
+                <div class="stat-label">Global Data by 2025 (Zettabytes)</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="chart" class="section chart-section">
+        <h2 class="section-title">Computing Power Evolution</h2>
+        <div class="chart-container">
+            <div class="bar-chart">
+                <div class="bar" style="height: 20%;" data-value="0.002">
+                    <div class="bar-value">0.002 MIPS</div>
+                    <div class="bar-label">ENIAC (1945)</div>
+                </div>
+                <div class="bar" style="height: 30%;" data-value="0.06">
+                    <div class="bar-value">0.06 MIPS</div>
+                    <div class="bar-label">IBM 704 (1954)</div>
+                </div>
+                <div class="bar" style="height: 50%;" data-value="0.8">
+                    <div class="bar-value">0.8 MIPS</div>
+                    <div class="bar-label">IBM S/360 (1964)</div>
+                </div>
+                <div class="bar" style="height: 65%;" data-value="1">
+                    <div class="bar-value">1 MIPS</div>
+                    <div class="bar-label">Intel 8086 (1978)</div>
+                </div>
+                <div class="bar" style="height: 85%;" data-value="54">
+                    <div class="bar-value">54 MIPS</div>
+                    <div class="bar-label">Intel Pentium (1993)</div>
+                </div>
+                <div class="bar" style="height: 100%;" data-value="253,000">
+                    <div class="bar-value">253,000 MIPS</div>
+                    <div class="bar-label">Apple M1 (2020)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="demo" class="section interactive-demo">
+        <h2 class="section-title">Interactive Experience</h2>
+        <div class="demo-container">
+            <div class="device-mockup">
+                <div class="screen">
+                    <div class="screen-content">
+                        <i class="fas fa-brain screen-icon"></i>
+                        <h3 class="screen-title">AI Assistant</h3>
+                        <p class="screen-subtitle">Tap to experience next-gen interaction</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="future" class="section future-section">
+        <h2 class="section-title">Future Technologies</h2>
+        <div class="future-grid">
+            <div class="future-card">
+                <i class="fas fa-brain future-icon"></i>
+                <h3>Artificial General Intelligence</h3>
+                <p>Systems that can understand, learn, and apply knowledge across a wide range of tasks at human-level capability.</p>
+            </div>
+            <div class="future-card">
+                <i class="fas fa-atom future-icon"></i>
+                <h3>Quantum Computing</h3>
+                <p>Computers using quantum mechanics to solve problems exponentially faster than classical computers.</p>
+            </div>
+            <div class="future-card">
+                <i class="fas fa-dna future-icon"></i>
+                <h3>Genetic Engineering</h3>
+                <p>Precise editing of DNA to cure diseases, enhance abilities, and create new biological systems.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', () => {
+            // Create floating elements
+            createFloatingElements();
+            
+            // Simulate loading
+            setTimeout(() => {
+                document.querySelector('.loading-overlay').classList.add('fade-out');
+                
+                // Show welcome toast
+                showToast('Welcome to Tech Evolution Explorer!');
+                
+                // Animate hero section elements
+                document.querySelectorAll('.hero').forEach(section => {
+                    section.classList.add('animate');
+                });
+                
+                // Initialize scroll events
+                initScrollEvents();
+                
+                // Initialize navigation
+                initNavigation();
+                
+                // Initialize interactive elements
+                initInteractions();
+            }, 2000);
+        });
+
+        // Create floating background elements
+        function createFloatingElements() {
+            const container = document.getElementById('floatingElements');
+            const count = 100;
+            
+            for (let i = 0; i < count; i++) {
+                const element = document.createElement('div');
+                const size = Math.random() > 0.7 ? 'large' : (Math.random() > 0.4 ? 'medium' : 'small');
+                
+                element.classList.add('floating-element', size);
+                
+                // Random position
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                element.style.left = `${left}%`;
+                element.style.top = `${top}%`;
+                
+                // Random animation duration and delay
+                const duration = 15 + Math.random() * 25;
+                const delay = Math.random() * 5;
+                element.style.animationDuration = `${duration}s`;
+                element.style.animationDelay = `${delay}s`;
+                
+                // Random horizontal movement
+                element.style.setProperty('--random-x', `${Math.random() * 100 - 50}vw`);
+                
+                container.appendChild(element);
+            }
+        }
+
+        // Initialize scroll events
+        function initScrollEvents() {
+            // Progress bar
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrolled = (scrollTop / scrollHeight) * 100;
+                document.getElementById('progressBar').style.width = `${scrolled}%`;
+                
+                // Show/hide scroll to top button
+                const scrollToTopBtn = document.getElementById('scrollToTop');
+                if (scrollTop > 500) {
+                    scrollToTopBtn.classList.add('show');
+                } else {
+                    scrollToTopBtn.classList.remove('show');
+                }
+                
+                // Section animations
+                animateSections();
+                
+                // Update navigation pills
+                updateNavigationPills();
+            });
+            
+            // Scroll to top functionality
+            document.getElementById('scrollToTop').addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // Animate sections when in view
+        function animateSections() {
+            document.querySelectorAll('.section').forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const triggerPoint = window.innerHeight * 0.75;
+                
+                if (sectionTop < triggerPoint) {
+                    section.classList.add('animate');
+                    
+                    // Special animations for specific sections
+                    if (section.id === 'timeline') {
+                        animateTimeline();
+                    } else if (section.id === 'stats') {
+                        animateStats();
+                    } else if (section.id === 'chart') {
+                        animateChart();
+                    } else if (section.id === 'future') {
+                        animateFuture();
+                    }
+                }
+            });
+        }
+
+        // Initialize navigation
+        function initNavigation() {
+            const navPills = document.querySelectorAll('.nav-pill');
+            
+            navPills.forEach(pill => {
+                pill.addEventListener('click', () => {
+                    const sectionId = pill.getAttribute('data-section');
+                    const section = document.getElementById(sectionId);
+                    
+                    window.scrollTo({
+                        top: section.offsetTop,
+                        behavior: 'smooth'
+                    });
+                    
+                    showToast(`Navigating to ${sectionId === 'hero' ? 'Introduction' : sectionId} section`);
+                });
+            });
+        }
+
+        // Update active navigation pill
+        function updateNavigationPills() {
+            const sections = document.querySelectorAll('.section');
+            const navPills = document.querySelectorAll('.nav-pill');
+            
+            let currentSection = '';
+            
+            sections.forEach((section, index) => {
+                const sectionTop = section.getBoundingClientRect().top;
+                if (sectionTop <= window.innerHeight / 2) {
+                    currentSection = section.id;
+                }
+            });
+            
+            navPills.forEach((pill, index) => {
+                if (pill.getAttribute('data-section') === currentSection) {
+                    pill.classList.add('active');
+                } else {
+                    pill.classList.remove('active');
+                }
+            });
+        }
+
+        // Initialize interactive elements
+        function initInteractions() {
+            // Mouse parallax effect
+            document.addEventListener('mousemove', (e) => {
+                document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+                document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+            });
+            
+            // Demo interaction
+            const demoDevice = document.querySelector('.device-mockup');
+            if (demoDevice) {
+                demoDevice.addEventListener('click', () => {
+                    const screen = demoDevice.querySelector('.screen');
+                    screen.style.background = `linear-gradient(45deg, ${getRandomColor()}, ${getRandomColor()})`;
+                    
+                    showToast('Experience refreshed!');
+                });
+            }
+        }
+
+        // Animate timeline
+        function animateTimeline() {
+            const timelineLine = document.getElementById('timelineLine');
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            // Animate timeline line
+            timelineLine.style.height = '100%';
+            
+            // Animate timeline items with delay
+            timelineItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.add('animate');
+                }, 300 * index);
+            });
+        }
+
+        // Animate stats cards
+        function animateStats() {
+            const statCards = document.querySelectorAll('.stat-card');
+            const statNumbers = [
+                { id: 'stat1', value: 5.3, suffix: 'B' },
+                { id: 'stat2', value: 37, suffix: '%' },
+                { id: 'stat3', value: 94, suffix: '%' },
+                { id: 'stat4', value: 175, suffix: 'ZB' }
+            ];
+            
+            statCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('animate');
+                    
+                    // Animate counting up
+                    const numberElement = document.getElementById(statNumbers[index].id);
+                    const targetValue = statNumbers[index].value;
+                    const suffix = statNumbers[index].suffix;
+                    let current = 0;
+                    const increment = targetValue / 30;
+                    
+                    const counter = setInterval(() => {
+                        current += increment;
+                        if (current >= targetValue) {
+                            current = targetValue;
+                            clearInterval(counter);
+                        }
+                        
+                        // Format number with suffix
+                        numberElement.textContent = 
+                            Number.isInteger(targetValue) ? 
+                            Math.round(current) + suffix : 
+                            current.toFixed(1) + suffix;
+                    }, 50);
+                }, 300 * index);
+            });
+        }
+
+        // Animate chart bars
+        function animateChart() {
+            const bars = document.querySelectorAll('.bar');
+            
+            bars.forEach((bar, index) => {
+                setTimeout(() => {
+                    bar.classList.add('animate');
+                }, 300 * index);
+            });
+        }
+
+        // Animate future cards
+        function animateFuture() {
+            const futureCards = document.querySelectorAll('.future-card');
+            
+            futureCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('animate');
+                }, 300 * index);
+            });
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            const toastContainer = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            
+            toast.classList.add('toast');
+            toast.textContent = message;
+            toastContainer.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    toast.remove();
+                }, 500);
+            }, 3000);
+        }
+
+        // Helper function to get random gradient color
+        function getRandomColor() {
+            const colors = [
+                '#007AFF', '#5856D6', '#AF52DE', '#00D4FF', '#32D74B', '#FF2D55'
+            ];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+    </script>
+</body>
+</html>
