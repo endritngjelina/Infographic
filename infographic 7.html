@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Tech Revolution: 2010-2024</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(45, 134, 208, 0.1) 0%, transparent 50%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="20" cy="20" r="0.5" fill="%23ffffff" opacity="0.1"/><circle cx="80" cy="30" r="0.8" fill="%23ffffff" opacity="0.1"/><circle cx="30" cy="80" r="0.6" fill="%23ffffff" opacity="0.1"/><circle cx="70" cy="70" r="0.4" fill="%23ffffff" opacity="0.1"/></svg>') repeat;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-100px); }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero p {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeIn 1s ease 1s forwards, bounce 2s infinite 2s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .section-title.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+            transition: all 0.8s ease;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card.animate {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: all 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-container.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .chart {
+            display: flex;
+            align-items: end;
+            justify-content: space-around;
+            height: 300px;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .bar {
+            width: 60px;
+            background: linear-gradient(to top, #ff6b6b, #4ecdc4);
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            transition: all 0.8s ease;
+            transform-origin: bottom;
+            transform: scaleY(0);
+        }
+
+        .bar.animate {
+            transform: scaleY(1);
+        }
+
+        .bar::before {
+            content: attr(data-value);
+            position: absolute;
+            top: -2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .bar::after {
+            content: attr(data-year);
+            position: absolute;
+            bottom: -2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 4rem 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin: 3rem 0;
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: all 0.8s ease;
+        }
+
+        .timeline-item.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+            transform: translateX(100px);
+        }
+
+        .timeline-item:nth-child(even).animate {
+            transform: translateX(0);
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            margin: 0 2rem;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            flex: 1;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .timeline-year {
+            color: #4ecdc4;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: floatAround 15s infinite linear;
+        }
+
+        @keyframes floatAround {
+            0% { transform: translate(0, 100vh) rotate(0deg); }
+            100% { transform: translate(0, -100px) rotate(360deg); }
+        }
+
+        .interactive-demo {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .demo-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .demo-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .demo-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .demo-btn.active {
+            background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+            transform: scale(1.05);
+        }
+
+        .demo-content {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .particle-system {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: #4ecdc4;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: particle-float 8s infinite ease-in-out;
+        }
+
+        @keyframes particle-float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-100vh) rotate(360deg); }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .timeline-item {
+                flex-direction: column !important;
+                text-align: center;
+                transform: translateY(50px) !important;
+            }
+            
+            .timeline-item.animate {
+                transform: translateY(0) !important;
+            }
+
+            .demo-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .chart {
+                height: 200px;
+            }
+
+            .bar {
+                width: 40px;
+            }
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #4ecdc4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .performance-metrics {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+    </div>
+
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="floating-elements" id="floatingElements"></div>
+    <div class="particle-system" id="particleSystem"></div>
+
+    <section class="hero">
+        <h1>Tech Revolution</h1>
+        <p>Visualizing Global Technology Growth 2010-2024</p>
+        <div class="scroll-indicator">
+            <div style="font-size: 2rem;">↓</div>
+            <p>Scroll to explore</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Global Impact</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" data-target="5.16">0</div>
+                    <div class="stat-label">Billion Internet Users</div>
+                    <p>From 2B in 2010 to 5.16B in 2024</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="6.8">0</div>
+                    <div class="stat-label">Billion Smartphone Users</div>
+                    <p>Explosive mobile adoption worldwide</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="97">0</div>
+                    <div class="stat-label">Zettabytes of Data</div>
+                    <p>Global data creation in 2024</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="4.2">0</div>
+                    <div class="stat-label">Trillion Dollar Value</div>
+                    <p>Combined value of top 10 tech companies</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Market Evolution</h2>
+            <div class="chart-container">
+                <h3 style="text-align: center; margin-bottom: 2rem; color: #4ecdc4;">Global Tech Market Cap (Trillions USD)</h3>
+                <div class="chart">
+                    <div class="bar" data-value="$0.8T" data-year="2010" style="height: 20%;"></div>
+                    <div class="bar" data-value="$1.2T" data-year="2012" style="height: 30%;"></div>
+                    <div class="bar" data-value="$2.1T" data-year="2014" style="height: 52%;"></div>
+                    <div class="bar" data-value="$2.8T" data-year="2016" style="height: 70%;"></div>
+                    <div class="bar" data-value="$3.5T" data-year="2018" style="height: 87%;"></div>
+                    <div class="bar" data-value="$4.8T" data-year="2020" style="height: 100%;"></div>
+                    <div class="bar" data-value="$6.2T" data-year="2022" style="height: 95%;"></div>
+                    <div class="bar" data-value="$7.1T" data-year="2024" style="height: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Innovation Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2010</div>
+                        <h3>The iPad Revolution</h3>
+                        <p>Apple launches iPad, creating the modern tablet market and changing how we consume content.</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2012</div>
+                        <h3>Deep Learning Breakthrough</h3>
+                        <p>AlexNet wins ImageNet, sparking the modern AI renaissance and neural network boom.</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2016</div>
+                        <h3>AI Beats Human</h3>
+                        <p>AlphaGo defeats world champion Lee Sedol, showcasing AI's strategic thinking capabilities.</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2020</div>
+                        <h3>Remote Work Revolution</h3>
+                        <p>COVID-19 accelerates digital transformation, making remote work and video conferencing mainstream.</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2022</div>
+                        <h3>ChatGPT Launch</h3>
+                        <p>OpenAI releases ChatGPT, bringing generative AI to mainstream users worldwide.</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2024</div>
+                        <h3>AI Integration Era</h3>
+                        <p>AI becomes integrated into everyday applications, from search to productivity tools.</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="interactive-demo">
+                <h2 class="section-title">Interactive Insights</h2>
+                <p style="margin-bottom: 2rem; opacity: 0.8;">Explore different aspects of tech growth</p>
+                
+                <div class="demo-buttons">
+                    <button class="demo-btn active" data-demo="users">User Growth</button>
+                    <button class="demo-btn" data-demo="revenue">Revenue Trends</button>
+                    <button class="demo-btn" data-demo="innovation">Innovation Index</button>
+                    <button class="demo-btn" data-demo="investment">VC Investment</button>
+                </div>
+                
+                <div class="demo-content" id="demoContent">
+                    <div id="users-demo">
+                        <h3>Global User Growth</h3>
+                        <p>Internet users have grown by 158% since 2010, with mobile users increasing by 340%. The shift to mobile-first has revolutionized how we interact with technology.</p>
+                        <div style="margin-top: 1rem; font-size: 2rem; color: #4ecdc4;">📱 6.8B Mobile Users</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <h3 style="margin-bottom: 1rem;">The Future is Now</h3>
+        <p>Data visualization showcasing the unprecedented growth of technology from 2010-2024.</p>
+        <p style="opacity: 0.6; margin-top: 1rem;">Built with modern web technologies and interactive design principles.</p>
+    </footer>
+
+    <div class="performance-metrics" id="performanceMetrics">
+        <div>FPS: <span id="fpsCounter">60</span></div>
+        <div>Animations: <span id="animationCounter">0</span></div>
+    </div>
+
+    <script>
+        class TechGrowthInfographic {
+            constructor() {
+                this.observers = [];
+                this.animatedElements = new Set();
+                this.particles = [];
+                this.performanceMonitor = {
+                    fps: 0,
+                    lastTime: 0,
+                    frameCount: 0
+                };
+                this.init();
+            }
+
+            init() {
+                this.setupLoading();
+                this.setupIntersectionObserver();
+                this.setupScrollProgress();
+                this.setupCountUpAnimations();
+                this.setupFloatingElements();
+                this.setupParticleSystem();
+                this.setupInteractiveDemo();
+                this.setupPerformanceMonitoring();
+                this.setupKeyboardNavigation();
+            }
+
+            setupLoading() {
+                window.addEventListener('load', () => {
+                    setTimeout(() => {
+                        document.getElementById('loadingScreen').classList.add('hidden');
+                        this.startAnimations();
+                    }, 1000);
+                });
+            }
+
+            setupIntersectionObserver() {
+                const observerOptions = {
+                    threshold: [0.1, 0.3, 0.7],
+                    rootMargin: '-50px 0px'
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
+                            this.animateElement(entry.target);
+                        }
+                    });
+                }, observerOptions);
+
+                // Observe all animatable elements
+                const elements = document.querySelectorAll('.section-title, .stat-card, .chart-container, .timeline-item, .bar');
+                elements.forEach(el => {
+                    observer.observe(el);
+                });
+
+                this.observers.push(observer);
+            }
+
+            animateElement(element) {
+                if (this.animatedElements.has(element)) return;
+                
+                this.animatedElements.add(element);
+                
+                // Add staggered animation delays for grouped elements
+                if (element.classList.contains('stat-card')) {
+                    const cards = [...document.querySelectorAll('.stat-card')];
+                    const index = cards.indexOf(element);
+                    setTimeout(() => {
+                        element.classList.add('animate');
+                        this.triggerCountUp(element);
+                    }, index * 150);
+                } else if (element.classList.contains('bar')) {
+                    const bars = [...document.querySelectorAll('.bar')];
+                    const index = bars.indexOf(element);
+                    setTimeout(() => {
+                        element.classList.add('animate');
+                    }, index * 100);
+                } else {
+                    element.classList.add('animate');
+                }
+
+                // Update performance counter
+                const counter = document.getElementById('animationCounter');
+                if (counter) {
+                    counter.textContent = this.animatedElements.size;
+                }
+            }
+
+            setupScrollProgress() {
+                window.addEventListener('scroll', () => {
+                    const scrolled = window.pageYOffset;
+                    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                    const progress = Math.min(scrolled / maxScroll, 1);
+                    
+                    document.getElementById('progressBar').style.width = `${progress * 100}%`;
+                    
+                    // Parallax effect for floating elements
+                    const floatingElements = document.querySelectorAll('.floating-element');
+                    floatingElements.forEach((el, index) => {
+                        const speed = 0.5 + (index * 0.1);
+                        el.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.1}deg)`;
+                    });
+                }, { passive: true });
+            }
+
+            setupCountUpAnimations() {
+                this.countUp = (element, target, duration = 2000) => {
+                    const start = parseFloat(element.textContent) || 0;
+                    const increment = (target - start) / (duration / 16);
+                    let current = start;
+                    
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            current = target;
+                            clearInterval(timer);
+                        }
+                        
+                        // Format numbers appropriately
+                        if (target >= 1000) {
+                            element.textContent = (current / 1000).toFixed(1) + 'K';
+                        } else if (target >= 1) {
+                            element.textContent = current.toFixed(1);
+                        } else {
+                            element.textContent = current.toFixed(2);
+                        }
+                        
+                        if (target < 10) {
+                            element.textContent = current.toFixed(2);
+                        }
+                    }, 16);
+                };
+            }
+
+            triggerCountUp(card) {
+                const numberElement = card.querySelector('.stat-number');
+                const target = parseFloat(numberElement.dataset.target);
+                this.countUp(numberElement, target);
+            }
+
+            setupFloatingElements() {
+                const container = document.getElementById('floatingElements');
+                const shapes = ['⚡', '🚀', '💡', '🔮', '⭐', '🌟', '💫'];
+                
+                for (let i = 0; i < 20; i++) {
+                    const element = document.createElement('div');
+                    element.className = 'floating-element';
+                    element.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+                    element.style.left = Math.random() * 100 + '%';
+                    element.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                    element.style.animationDelay = Math.random() * 10 + 's';
+                    element.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                    container.appendChild(element);
+                }
+            }
+
+            setupParticleSystem() {
+                const container = document.getElementById('particleSystem');
+                
+                const createParticle = () => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.width = particle.style.height = (Math.random() * 4 + 2) + 'px';
+                    particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                    particle.style.animationDelay = Math.random() * 2 + 's';
+                    
+                    container.appendChild(particle);
+                    
+                    // Remove particle after animation
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                        }
+                    }, 8000);
+                };
+
+                // Create particles periodically
+                setInterval(createParticle, 2000);
+                
+                // Initial burst
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(createParticle, i * 200);
+                }
+            }
+
+            setupInteractiveDemo() {
+                const buttons = document.querySelectorAll('.demo-btn');
+                const content = document.getElementById('demoContent');
+                
+                const demoData = {
+                    users: {
+                        title: 'Global User Growth',
+                        content: 'Internet users have grown by 158% since 2010, with mobile users increasing by 340%. The shift to mobile-first has revolutionized how we interact with technology.',
+                        metric: '📱 6.8B Mobile Users'
+                    },
+                    revenue: {
+                        title: 'Revenue Explosion',
+                        content: 'Top tech companies\' combined revenue grew from $500B in 2010 to over $2.8T in 2024. Cloud computing, digital advertising, and subscription services drove this unprecedented growth.',
+                        metric: '💰 $2.8T Annual Revenue'
+                    },
+                    innovation: {
+                        title: 'Innovation Acceleration',
+                        content: 'Patent filings in AI and machine learning increased by 1200% since 2010. The pace of technological advancement has reached exponential levels across multiple domains.',
+                        metric: '🧠 1200% AI Patent Growth'
+                    },
+                    investment: {
+                        title: 'Venture Capital Boom',
+                        content: 'Global VC investment in tech startups reached $621B in 2024, up from $48B in 2010. AI, fintech, and climate tech lead investment categories.',
+                        metric: '🚀 $621B VC Investment'
+                    }
+                };
+
+                buttons.forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        // Remove active class from all buttons
+                        buttons.forEach(btn => btn.classList.remove('active'));
+                        
+                        // Add active class to clicked button
+                        e.target.classList.add('active');
+                        
+                        // Get demo type
+                        const demoType = e.target.dataset.demo;
+                        const data = demoData[demoType];
+                        
+                        // Animate content change
+                        content.style.opacity = '0.3';
+                        content.style.transform = 'scale(0.95)';
+                        
+                        setTimeout(() => {
+                            content.innerHTML = `
+                                <div id="${demoType}-demo">
+                                    <h3>${data.title}</h3>
+                                    <p>${data.content}</p>
+                                    <div style="margin-top: 1rem; font-size: 2rem; color: #4ecdc4;">${data.metric}</div>
+                                </div>
+                            `;
+                            content.style.opacity = '1';
+                            content.style.transform = 'scale(1)';
+                        }, 150);
+                    });
+                });
+            }
+
+            setupPerformanceMonitoring() {
+                const fpsCounter = document.getElementById('fpsCounter');
+                let frameCount = 0;
+                let lastTime = performance.now();
+
+                const updateFPS = (currentTime) => {
+                    frameCount++;
+                    
+                    if (currentTime >= lastTime + 1000) {
+                        if (fpsCounter) {
+                            fpsCounter.textContent = frameCount;
+                        }
+                        frameCount = 0;
+                        lastTime = currentTime;
+                    }
+                    
+                    requestAnimationFrame(updateFPS);
+                };
+
+                requestAnimationFrame(updateFPS);
+            }
+
+            setupKeyboardNavigation() {
+                let currentSection = 0;
+                const sections = document.querySelectorAll('.section, .hero');
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+                        e.preventDefault();
+                        currentSection = Math.min(currentSection + 1, sections.length - 1);
+                        sections[currentSection].scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                        e.preventDefault();
+                        currentSection = Math.max(currentSection - 1, 0);
+                        sections[currentSection].scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    } else if (e.key === 'Home') {
+                        e.preventDefault();
+                        currentSection = 0;
+                        sections[0].scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    } else if (e.key === 'End') {
+                        e.preventDefault();
+                        currentSection = sections.length - 1;
+                        sections[currentSection].scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+
+                // Update current section based on scroll position
+                const sectionObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                            currentSection = [...sections].indexOf(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                sections.forEach(section => {
+                    sectionObserver.observe(section);
+                });
+            }
+
+            startAnimations() {
+                // Add smooth reveal animations
+                const elements = document.querySelectorAll('.hero h1, .hero p, .scroll-indicator');
+                elements.forEach((el, index) => {
+                    setTimeout(() => {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }, index * 200);
+                });
+
+                // Start particle system
+                this.setupParticleSystem();
+            }
+
+            // Public API for external integrations
+            getAnimationProgress() {
+                return {
+                    totalElements: document.querySelectorAll('.section-title, .stat-card, .chart-container, .timeline-item, .bar').length,
+                    animatedElements: this.animatedElements.size,
+                    progress: (this.animatedElements.size / document.querySelectorAll('.section-title, .stat-card, .chart-container, .timeline-item, .bar').length) * 100
+                };
+            }
+
+            // Performance optimization methods
+            optimizePerformance() {
+                // Debounce scroll events
+                let scrollTimeout;
+                const originalScrollHandler = window.onscroll;
+                
+                window.addEventListener('scroll', () => {
+                    if (scrollTimeout) {
+                        clearTimeout(scrollTimeout);
+                    }
+                    
+                    scrollTimeout = setTimeout(() => {
+                        if (originalScrollHandler) {
+                            originalScrollHandler();
+                        }
+                    }, 16);
+                }, { passive: true });
+
+                // Lazy load heavy animations
+                const heavyAnimations = document.querySelectorAll('.particle-system, .floating-elements');
+                heavyAnimations.forEach(el => {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                el.style.display = 'block';
+                            } else {
+                                el.style.display = 'none';
+                            }
+                        });
+                    });
+                    
+                    observer.observe(el);
+                });
+            }
+
+            // Analytics and user interaction tracking
+            trackUserInteraction(action, element) {
+                // In a real application, this would send data to analytics
+                console.log(`User Interaction: ${action} on ${element}`);
+                
+                // Example of what could be tracked:
+                const interactionData = {
+                    timestamp: Date.now(),
+                    action: action,
+                    element: element,
+                    scrollPosition: window.pageYOffset,
+                    viewportSize: {
+                        width: window.innerWidth,
+                        height: window.innerHeight
+                    },
+                    userAgent: navigator.userAgent
+                };
+                
+                // This could be sent to Google Analytics, Mixpanel, etc.
+                return interactionData;
+            }
+
+            // Accessibility enhancements
+            enhanceAccessibility() {
+                // Add ARIA labels to interactive elements
+                const interactiveElements = document.querySelectorAll('.demo-btn, .stat-card, .timeline-item');
+                interactiveElements.forEach((el, index) => {
+                    el.setAttribute('role', 'button');
+                    el.setAttribute('tabindex', '0');
+                    el.setAttribute('aria-label', `Interactive element ${index + 1}`);
+                });
+
+                // Add keyboard event listeners for accessibility
+                interactiveElements.forEach(el => {
+                    el.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            el.click();
+                        }
+                    });
+                });
+
+                // Reduce motion for users who prefer it
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    document.documentElement.style.setProperty('--animation-duration', '0.1s');
+                    const animations = document.querySelectorAll('[class*="animate"]');
+                    animations.forEach(el => {
+                        el.style.transition = 'none';
+                        el.style.animation = 'none';
+                    });
+                }
+            }
+
+            // Error handling and fallbacks
+            setupErrorHandling() {
+                window.addEventListener('error', (e) => {
+                    console.error('Application Error:', e.error);
+                    
+                    // Fallback for failed animations
+                    if (e.error.message.includes('animation')) {
+                        document.querySelectorAll('.animate').forEach(el => {
+                            el.classList.add('animate');
+                        });
+                    }
+                });
+
+                // Check for browser compatibility
+                if (!window.IntersectionObserver) {
+                    // Fallback for older browsers
+                    const elements = document.querySelectorAll('.section-title, .stat-card, .chart-container, .timeline-item, .bar');
+                    elements.forEach(el => {
+                        el.classList.add('animate');
+                    });
+                }
+            }
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', () => {
+            const app = new TechGrowthInfographic();
+            
+            // Global error handling
+            app.setupErrorHandling();
+            
+            // Performance optimizations
+            app.optimizePerformance();
+            
+            // Accessibility enhancements
+            app.enhanceAccessibility();
+            
+            // Add development mode features
+            if (window.location.search.includes('debug=true')) {
+                document.getElementById('performanceMetrics').style.display = 'block';
+                
+                // Add debug console commands
+                window.infographic = app;
+                console.log('Debug mode enabled. Access app instance via window.infographic');
+                console.log('Available methods:', Object.getOwnPropertyNames(Object.getPrototypeOf(app)));
+            }
+
+            // Add touch gestures for mobile
+            let startY = 0;
+            let endY = 0;
+            
+            document.addEventListener('touchstart', (e) => {
+                startY = e.touches[0].clientY;
+            }, { passive: true });
+            
+            document.addEventListener('touchend', (e) => {
+                endY = e.changedTouches[0].clientY;
+                const diff = startY - endY;
+                
+                if (Math.abs(diff) > 50) { // Minimum swipe distance
+                    if (diff > 0) {
+                        // Swipe up - next section
+                        const event = new KeyboardEvent('keydown', { key: 'ArrowDown' });
+                        document.dispatchEvent(event);
+                    } else {
+                        // Swipe down - previous section
+                        const event = new KeyboardEvent('keydown', { key: 'ArrowUp' });
+                        document.dispatchEvent(event);
+                    }
+                }
+            }, { passive: true });
+
+            // Service Worker registration for PWA capabilities
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw.js').then(() => {
+                    console.log('Service Worker registered for offline capabilities');
+                }).catch(() => {
+                    console.log('Service Worker registration failed - offline mode unavailable');
+                });
+            }
+        });
+
+        // Export for module systems
+        if (typeof module !== 'undefined' && module.exports) {
+            module.exports = TechGrowthInfographic;
+        }
+    </script>
+</body>
+</html>
