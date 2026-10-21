@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Digital Revolution: A Journey Through Tech Growth</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%);
+            animation: pulseGradient 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseGradient {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: heroFadeIn 2s ease-out 0.5s forwards;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: heroFadeIn 2s ease-out 1s forwards;
+        }
+
+        @keyframes heroFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: scrollIndicator 2s ease-out 2s forwards;
+        }
+
+        @keyframes scrollIndicator {
+            to { opacity: 1; }
+        }
+
+        .scroll-arrow {
+            width: 2px;
+            height: 30px;
+            background: linear-gradient(to bottom, transparent, #4ecdc4);
+            margin: 0 auto;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Section Styles */
+        .section {
+            min-height: 100vh;
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #ffffff, #b8b8b8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .section-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Internet Users Growth */
+        .internet-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg) translate(-100%, -100%);
+            transition: transform 0.6s;
+        }
+
+        .stat-card:hover::before {
+            transform: rotate(45deg) translate(100%, 100%);
+        }
+
+        .stat-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        /* Progress Bar Animation */
+        .progress-container {
+            background: rgba(255, 255, 255, 0.1);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            border-radius: 4px;
+            width: 0;
+            transition: width 2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* Smartphone Evolution */
+        .smartphone-timeline {
+            position: relative;
+            margin-top: 4rem;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #4ecdc4, #45b7d1, #ff6b6b);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+            transform: translateX(50px);
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 0 2rem;
+        }
+
+        .timeline-year {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-phone {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #4ecdc4;
+        }
+
+        .timeline-desc {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* Social Media Growth Chart */
+        .chart-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-top: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart {
+            display: flex;
+            align-items: end;
+            justify-content: space-around;
+            height: 300px;
+            margin-top: 2rem;
+        }
+
+        .chart-bar {
+            background: linear-gradient(to top, #ff6b6b, #4ecdc4);
+            width: 60px;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+            margin: 0 10px;
+        }
+
+        .chart-bar.animate {
+            transform: scaleY(1);
+        }
+
+        .chart-label {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            opacity: 0.8;
+            white-space: nowrap;
+        }
+
+        .chart-value {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #4ecdc4;
+        }
+
+        /* AI Revolution Section */
+        .ai-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .ai-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transform: translateY(50px) rotateX(10deg);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+        }
+
+        .ai-card.visible {
+            opacity: 1;
+            transform: translateY(0) rotateX(0deg);
+        }
+
+        .ai-card:hover {
+            transform: translateY(-10px) rotateX(0deg);
+        }
+
+        .ai-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .ai-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #4ecdc4;
+        }
+
+        .ai-desc {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* Future Section */
+        .future-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .future-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .future-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+
+        .cta-button.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+        }
+
+        /* Floating Elements */
+        .floating-element {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(even) {
+            animation-direction: reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .timeline-line { display: none; }
+            .timeline-item { flex-direction: column !important; transform: translateY(30px) !important; }
+            .timeline-content { margin: 1rem 0; }
+            .chart { flex-direction: column; height: auto; align-items: center; }
+            .chart-bar { width: 80%; height: 40px; margin: 10px 0; transform: scaleX(0); transform-origin: left; }
+            .chart-label { position: static; margin-top: 10px; }
+            .chart-value { position: static; margin-bottom: 5px; }
+        }
+
+        /* Progress Indicator */
+        .progress-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Indicator -->
+    <div class="progress-indicator">
+        <div class="progress-fill"></div>
+    </div>
+
+    <!-- Floating Elements -->
+    <div class="floating-element" style="top: 20%; left: 10%; font-size: 2rem;">💻</div>
+    <div class="floating-element" style="top: 60%; right: 15%; font-size: 1.5rem;">📱</div>
+    <div class="floating-element" style="top: 80%; left: 20%; font-size: 2.5rem;">🚀</div>
+    <div class="floating-element" style="top: 40%; right: 25%; font-size: 1.8rem;">🤖</div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>The Digital Revolution</h1>
+            <p>A Journey Through 30 Years of Technological Growth</p>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Internet Growth Section -->
+    <section class="section" id="internet-section">
+        <div class="container">
+            <h2 class="section-title">Internet Users: From Millions to Billions</h2>
+            <div class="internet-stats">
+                <div class="stat-card">
+                    <div class="stat-number" data-target="16">0</div>
+                    <div class="stat-label">Million Users (1995)</div>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-progress="3"></div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="1000">0</div>
+                    <div class="stat-label">Million Users (2005)</div>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-progress="20"></div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="3900">0</div>
+                    <div class="stat-label">Million Users (2018)</div>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-progress="80"></div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="5160">0</div>
+                    <div class="stat-label">Million Users (2023)</div>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-progress="100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Smartphone Evolution Section -->
+    <section class="section" id="smartphone-section">
+        <div class="container">
+            <h2 class="section-title">The Smartphone Revolution</h2>
+            <div class="smartphone-timeline">
+                <div class="timeline-line"></div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2007</div>
+                        <div class="timeline-phone">iPhone Launch</div>
+                        <div class="timeline-desc">Apple revolutionized the mobile industry with the first iPhone, introducing multi-touch interface and mobile internet.</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2008</div>
+                        <div class="timeline-phone">Android Debut</div>
+                        <div class="timeline-desc">Google's Android OS launched, creating competition and rapid innovation in the smartphone market.</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2012</div>
+                        <div class="timeline-phone">1 Billion Users</div>
+                        <div class="timeline-desc">Smartphone adoption reached 1 billion users globally, transforming how we communicate and access information.</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2023</div>
+                        <div class="timeline-phone">6.8 Billion Users</div>
+                        <div class="timeline-desc">Nearly 85% of the global population now owns a smartphone, making it the most ubiquitous technology device.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Growth Section -->
+    <section class="section" id="social-section">
+        <div class="container">
+            <h2 class="section-title">Social Media: Connecting the World</h2>
+            <div class="chart-container">
+                <h3 style="text-align: center; margin-bottom: 2rem; font-size: 1.5rem; color: #4ecdc4;">Monthly Active Users (Billions)</h3>
+                <div class="chart">
+                    <div class="chart-bar" style="height: 80%;" data-height="80">
+                        <div class="chart-label">Facebook</div>
+                        <div class="chart-value">3.0B</div>
+                    </div>
+                    <div class="chart-bar" style="height: 65%;" data-height="65">
+                        <div class="chart-label">YouTube</div>
+                        <div class="chart-value">2.7B</div>
+                    </div>
+                    <div class="chart-bar" style="height: 50%;" data-height="50">
+                        <div class="chart-label">WhatsApp</div>
+                        <div class="chart-value">2.0B</div>
+                    </div>
+                    <div class="chart-bar" style="height: 45%;" data-height="45">
+                        <div class="chart-label">Instagram</div>
+                        <div class="chart-value">1.8B</div>
+                    </div>
+                    <div class="chart-bar" style="height: 30%;" data-height="30">
+                        <div class="chart-label">TikTok</div>
+                        <div class="chart-value">1.0B</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Revolution Section -->
+    <section class="section" id="ai-section">
+        <div class="container">
+            <h2 class="section-title">The AI Revolution</h2>
+            <div class="ai-grid">
+                <div class="ai-card">
+                    <div class="ai-icon">🧠</div>
+                    <div class="ai-title">Machine Learning</div>
+                    <div class="ai-desc">Advanced algorithms that learn from data, powering everything from recommendation systems to autonomous vehicles.</div>
+                </div>
+                <div class="ai-card">
+                    <div class="ai-icon">💬</div>
+                    <div class="ai-title">Natural Language Processing</div>
+                    <div class="ai-desc">AI systems that understand and generate human language, revolutionizing how we interact with technology.</div>
+                </div>
+                <div class="ai-card">
+                    <div class="ai-icon">👁️</div>
+                    <div class="ai-title">Computer Vision</div>
+                    <div class="ai-desc">AI that can see and interpret visual information, enabling facial recognition, medical imaging, and augmented reality.</div>
+                </div>
+                <div class="ai-card">
+                    <div class="ai-icon">🎨</div>
+                    <div class="ai-title">Generative AI</div>
+                    <div class="ai-desc">Creative AI that generates text, images, music, and code, transforming content creation and artistic expression.</div>
+                </div>
+                <div class="ai-card">
+                    <div class="ai-icon">🏥</div>
+                    <div class="ai-title">Healthcare AI</div>
+                    <div class="ai-desc">AI-powered diagnostics and treatment recommendations improving patient outcomes and medical research.</div>
+                </div>
+                <div class="ai-card">
+                    <div class="ai-icon">🚗</div>
+                    <div class="ai-title">Autonomous Systems</div>
+                    <div class="ai-desc">Self-driving cars, drones, and robots that operate independently, reshaping transportation and logistics.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Section -->
+    <section class="section" id="future-section">
+        <div class="container">
+            <h2 class="section-title">What's Next?</h2>
+            <div class="future-content">
+                <p class="future-text">
+                    The digital revolution is far from over. Emerging technologies like quantum computing, brain-computer interfaces, and advanced AI will continue to reshape our world in ways we can barely imagine.
+                </p>
+                <p class="future-text">
+                    From smart cities and IoT ecosystems to virtual reality metaverses and sustainable tech solutions, the next decade promises innovations that will make today's technology look primitive by comparison.
+                </p>
+                <a href="#" class="cta-button">Explore the Future</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Trigger specific animations based on element
+                    if (entry.target.classList.contains('stat-card')) {
+                        animateStatCard(entry.target);
+                    }
+                    
+                    if (entry.target.closest('#social-section') && entry.target.classList.contains('chart-container')) {
+                        animateChart();
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.section-title, .stat-card, .timeline-item, .ai-card, .future-text, .cta-button, .chart-container').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Animate number counting for stat cards
+        function animateStatCard(card) {
+            const number = card.querySelector('.stat-number');
+            const progressBar = card.querySelector('.progress-bar');
+            const target = parseInt(number.dataset.target);
+            const progressTarget = parseInt(progressBar.dataset.progress);
+            
+            let current = 0;
+            const increment = target / 50;
+            const duration = 2000;
+            const stepTime = duration / 50;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                number.textContent = Math.floor(current).toLocaleString();
+            }, stepTime);
+            
+            // Animate progress bar
+            setTimeout(() => {
+                progressBar.style.width = progressTarget + '%';
+            }, 500);
+        }
+
+        // Animate chart bars
+        function animateChart() {
+            const bars = document.querySelectorAll('.chart-bar');
+            bars.forEach((bar, index) => {
+                setTimeout(() => {
+                    bar.classList.add('animate');
+                }, index * 200);
+            });
+        }
+
+        // Scroll progress indicator
+        function updateProgressIndicator() {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollProgress = (scrollTop / docHeight) * 100;
+            document.querySelector('.progress-fill').style.width = scrollProgress + '%';
+        }
+
+        window.addEventListener('scroll', updateProgressIndicator);
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const heroContent = document.querySelector('.hero-content');
+            
+            if (scrolled < hero.offsetHeight) {
+                heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
+                hero.style.opacity = 1 - (scrolled / hero.offsetHeight);
+            }
+        });
+
+        // Smooth scrolling for scroll indicator
+        document.querySelector('.scroll-indicator').addEventListener('click', () => {
+            document.querySelector('#internet-section').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        // Interactive floating elements
+        document.querySelectorAll('.floating-element').forEach(element => {
+            const randomDelay = Math.random() * 2;
+            const randomDuration = 4 + Math.random() * 4;
+            element.style.animationDelay = randomDelay + 's';
+            element.style.animationDuration = randomDuration + 's';
+        });
+
+        // Advanced cursor trail effect
+        let mouseTrail = [];
+        const maxTrailLength = 10;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseTrail.push({ x: e.clientX, y: e.clientY, time: Date.now() });
+            
+            if (mouseTrail.length > maxTrailLength) {
+                mouseTrail.shift();
+            }
+            
+            // Create temporary trail elements
+            if (Math.random() > 0.8) {
+                const trail = document.createElement('div');
+                trail.style.cssText = `
+                    position: fixed;
+                    width: 4px;
+                    height: 4px;
+                    background: radial-gradient(circle, #4ecdc4, transparent);
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: 9999;
+                    left: ${e.clientX}px;
+                    top: ${e.clientY}px;
+                    animation: trailFade 1s ease-out forwards;
+                `;
+                document.body.appendChild(trail);
+                
+                setTimeout(() => trail.remove(), 1000);
+            }
+        });
+
+        // Add trail fade animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes trailFade {
+                from { opacity: 0.8; transform: scale(1); }
+                to { opacity: 0; transform: scale(0); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Enhanced card hover effects
+        document.querySelectorAll('.stat-card, .ai-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+                this.style.boxShadow = '0 20px 40px rgba(78, 205, 196, 0.3)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+                this.style.boxShadow = 'none';
+            });
+        });
+
+        // Dynamic background particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                width: ${Math.random() * 4 + 2}px;
+                height: ${Math.random() * 4 + 2}px;
+                background: rgba(78, 205, 196, ${Math.random() * 0.5 + 0.1});
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 1;
+                left: ${Math.random() * window.innerWidth}px;
+                top: ${window.innerHeight + 10}px;
+                animation: particleFloat ${Math.random() * 10 + 10}s linear forwards;
+            `;
+            document.body.appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 20000);
+        }
+
+        // Add particle float animation
+        const particleStyle = document.createElement('style');
+        particleStyle.textContent = `
+            @keyframes particleFloat {
+                0% { 
+                    transform: translateY(0) rotate(0deg);
+                    opacity: 0;
+                }
+                10% { opacity: 1; }
+                90% { opacity: 1; }
+                100% { 
+                    transform: translateY(-${window.innerHeight + 100}px) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(particleStyle);
+
+        // Create particles periodically
+        setInterval(createParticle, 3000);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const sections = ['hero', 'internet-section', 'smartphone-section', 'social-section', 'ai-section', 'future-section'];
+            let currentSection = 0;
+            
+            // Find current section
+            sections.forEach((section, index) => {
+                const element = document.getElementById(section) || document.querySelector('.hero');
+                const rect = element.getBoundingClientRect();
+                if (rect.top <= 100 && rect.bottom >= 100) {
+                    currentSection = index;
+                }
+            });
+            
+            if (e.key === 'ArrowDown' && currentSection < sections.length - 1) {
+                e.preventDefault();
+                const nextSection = document.getElementById(sections[currentSection + 1]) || document.querySelector('.hero');
+                nextSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            if (e.key === 'ArrowUp' && currentSection > 0) {
+                e.preventDefault();
+                const prevSection = document.getElementById(sections[currentSection - 1]) || document.querySelector('.hero');
+                prevSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        // Performance optimization - throttle scroll events
+        let scrollTimeout;
+        function throttledScroll() {
+            if (scrollTimeout) return;
+            scrollTimeout = setTimeout(() => {
+                updateProgressIndicator();
+                scrollTimeout = null;
+            }, 10);
+        }
+
+        window.removeEventListener('scroll', updateProgressIndicator);
+        window.addEventListener('scroll', throttledScroll);
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.overflow = 'auto';
+            
+            // Trigger initial animations
+            setTimeout(() => {
+                document.querySelector('.hero h1').style.animationPlayState = 'running';
+                document.querySelector('.hero p').style.animationPlayState = 'running';
+                document.querySelector('.scroll-indicator').style.animationPlayState = 'running';
+            }, 100);
+        });
+
+        // Easter egg - Konami code
+        let konamiCode = [];
+        const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // Up Up Down Down Left Right Left Right B A
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.keyCode);
+            if (konamiCode.length > konamiSequence.length) {
+                konamiCode.shift();
+            }
+            
+            if (konamiCode.length === konamiSequence.length && 
+                konamiCode.every((code, index) => code === konamiSequence[index])) {
+                
+                // Easter egg animation
+                document.body.style.animation = 'rainbow 2s infinite';
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes rainbow {
+                        0% { filter: hue-rotate(0deg); }
+                        100% { filter: hue-rotate(360deg); }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                setTimeout(() => {
+                    document.body.style.animation = '';
+                    style.remove();
+                }, 6000);
+                
+                konamiCode = [];
+            }
+        });
+
+        // Touch gestures for mobile
+        let touchStartY = 0;
+        let touchEndY = 0;
+        
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.changedTouches[0].screenY;
+        });
+        
+        document.addEventListener('touchend', (e) => {
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const swipeDistance = touchStartY - touchEndY;
+            
+            if (Math.abs(swipeDistance) > swipeThreshold) {
+                const sections = document.querySelectorAll('.section, .hero');
+                let currentIndex = 0;
+                
+                // Find current section
+                sections.forEach((section, index) => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= 100 && rect.bottom >= 100) {
+                        currentIndex = index;
+                    }
+                });
+                
+                if (swipeDistance > 0 && currentIndex < sections.length - 1) {
+                    // Swipe up - next section
+                    sections[currentIndex + 1].scrollIntoView({ behavior: 'smooth' });
+                } else if (swipeDistance < 0 && currentIndex > 0) {
+                    // Swipe down - previous section
+                    sections[currentIndex - 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
+
+        // Analytics tracking (placeholder)
+        function trackEvent(eventName, section) {
+            console.log(`Event: ${eventName}, Section: ${section}`);
+            // In a real application, this would send data to analytics service
+        }
+
+        // Track section views
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionName = entry.target.id || 'hero';
+                    trackEvent('section_view', sectionName);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.section, .hero').forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        // Preload next section content (performance optimization)
+        function preloadContent() {
+            const links = document.querySelectorAll('a[href]');
+            links.forEach(link => {
+                if (link.hostname === window.location.hostname) {
+                    const preloadLink = document.createElement('link');
+                    preloadLink.rel = 'prefetch';
+                    preloadLink.href = link.href;
+                    document.head.appendChild(preloadLink);
+                }
+            });
+        }
+
+        // Initialize preloading after page load
+        window.addEventListener('load', preloadContent);
+
+        // Accessibility enhancements
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-navigation');
+            }
+        });
+
+        document.addEventListener('mousedown', () => {
+            document.body.classList.remove('keyboard-navigation');
+        });
+
+        // Add focus styles for keyboard navigation
+        const focusStyle = document.createElement('style');
+        focusStyle.textContent = `
+            .keyboard-navigation *:focus {
+                outline: 3px solid #4ecdc4 !important;
+                outline-offset: 2px !important;
+            }
+        `;
+        document.head.appendChild(focusStyle);
+
+        console.log('🚀 Tech Growth Infographic loaded successfully!');
+        console.log('👨‍💻 Built for Adobe recruitment showcase');
+        console.log('🎨 Features: Scroll animations, IntersectionObserver, CSS animations, responsive design');
+    </script>
+</body>
+</html>
